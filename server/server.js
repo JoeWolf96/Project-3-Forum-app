@@ -2,7 +2,7 @@
 require('dotenv').config()
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3005 ;
 const mongoose = require('mongoose');
 const cors = require('cors')
 const session = require('express-session');
@@ -24,27 +24,24 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 
-// this line is creating the object "req.session"
-app.use(session({
-	secret: process.env.SECRET,
-	resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
-	saveUninitialized: false, // default  more info: https://www.npmjs.com/package/express-session#resave
-	store: new MongoDBStore({
-		uri: process.env.MONGODBURI,
-		collection: 'mySessions'
-	})
-}))
 
-// SETUP mongoose
+app.use(session({
+	secret: 'lol',
+	resave: false,
+	saveUninitialized: false,
+		uri: 'mongodb://127.0.0.1:27017/forum',
+		collection: 'mySessions'
+	}))
+
+
+//  mongoose
 const db = mongoose.connection;
-mongoose.connect(process.env.MONGODBURI,{
+mongoose.connect('mongodb://127.0.0.1:27017/forum',{
 	useNewUrlParser:true,
 	useUnifiedTopology: true,
 	useFindAndModify: false
 });
 
-
-// set up listeners to monitor your DB connection
 db.once('open', ()=> console.log('DB connected...'));
 db.on('error', (error)=> console.log(error.message));
 db.on('disconnected', ()=> console.log('Mongoose disconnected...'));
@@ -56,13 +53,14 @@ const isAuthenticated = (req, res, next) => {
         res.status(403).json({msg:"login required"})
     }
 }
-// this will tell the server to parse the JSON data, and create the req.body object.
+
 app.use(express.json());
 
 
 // controllers
 app.use('/topics', require('./controllers/topicController'))
-app.use('/posts', require('./controllers/postController'))
+//app.use('/posts', require('./controllers/postController'))
+app.use('/users', require('./controllers/userController'))
 
 
 app.listen(PORT, ()=>{

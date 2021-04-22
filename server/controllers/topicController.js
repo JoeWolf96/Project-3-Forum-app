@@ -1,6 +1,7 @@
 const express = require('express');
 const topics = express.Router();
 const topicModel = require('../models/topicModel');
+const userModel = require('../models/userModel');
 
 
 
@@ -8,7 +9,7 @@ const topicModel = require('../models/topicModel');
 topics.get('/', (req, res)=>{
 	// res.send('Get route is working!!!');
 
-	usersModel.findById(req.session.currentUser._id, (error, foundUser)=>{
+	userModel.findById(req.session.currentUser._id, (error, foundUser)=>{
 		if (error){
 			res.status(400).json(error)
 		}
@@ -31,7 +32,7 @@ topics.post('/', (req, res)=>{
 		}
 		else{
 
-			usersModel.findById(req.session.currentUser._id, (error, foundUser)=>{
+			userModel.findById(req.session.currentUser._id, (error, foundUser)=>{
 				if (error) {
 					res.status(400).json({ error: error.message })
 				}

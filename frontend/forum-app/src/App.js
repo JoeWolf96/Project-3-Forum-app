@@ -11,6 +11,7 @@ import Nav from './components/Nav'
 // https://create-react-app.dev/docs/adding-custom-environment-variables/
 
 let baseUrl = process.env.REACT_APP_BACKENDURL
+console.log(baseUrl)
 // let baseUrl = 'http://localhost:3003'
 
 
@@ -21,7 +22,7 @@ class App extends Component {
     this.state = {
       topics: [],
       modalOpen: false,
-      holidayToBeEdit:{},
+      topicsToBeEdit:{},
       description:'',
       name: '',
       userLogedIn: false

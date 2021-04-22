@@ -1,13 +1,13 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const users = express.Router();
-const UsersModel = require('../models/usersModel');
+const UsersModel = require('../models/userModel');
 
 
 // POST ROUTE sign up
 users.post('/signup', (req, res) => {
 
-    // hashing and salting the password
+
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
 
     UsersModel.create(req.body, (error, createdUser) => {
