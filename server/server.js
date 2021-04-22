@@ -29,8 +29,10 @@ app.use(session({
 	secret: 'lol',
 	resave: false,
 	saveUninitialized: false,
+	store: new MongoDBStore({
 		uri: 'mongodb://127.0.0.1:27017/forum',
 		collection: 'mySessions'
+	}),
 	}))
 
 

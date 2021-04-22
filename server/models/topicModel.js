@@ -6,5 +6,5 @@ const topicsSchema = new Schema({
     name: { type: String },
 })
 
-
-module.exports = model('Topics', topicsSchema)
+const Topic = model('Topics', topicsSchema)
+module.exports = Topic

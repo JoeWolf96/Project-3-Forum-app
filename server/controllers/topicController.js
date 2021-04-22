@@ -69,7 +69,7 @@ topics.delete('/:id', (req, res)=>{
 // UPDATE ROUTE
 topics.put('/:id', (req, res)=>{
 
-topicsModel.findByIdAndUpdate(req.params.id, req.body, {new:true}, (error, updatedTopic)=>{
+    topicModel.findByIdAndUpdate(req.params.id, req.body, {new:true}, (error, updatedTopic)=>{
 		if (error){
 			res.status(400).json({error: error.message})
 		}

@@ -23,7 +23,6 @@ class App extends Component {
       topics: [],
       modalOpen: false,
       topicsToBeEdit:{},
-      description:'',
       name: '',
       userLogedIn: false
     }
@@ -110,7 +109,7 @@ class App extends Component {
     }
   }
 
-  deleteTopic = async (id) => {
+  deleteTopics = async (id) => {
     const url = baseUrl + '/topics/' + id
 
     try{
@@ -177,7 +176,6 @@ handleSubmit = async (e) => {
         method: 'PUT',
         body: JSON.stringify({
           name: e.target.name.value,
-          description: e.target.description.values
         }),
         headers: {
           'Content-Type' : 'application/json'
@@ -205,6 +203,7 @@ handleSubmit = async (e) => {
 
   componentDidMount() {
     this.getTopics()
+
   }
 
   handleChange = (e)=>{
@@ -217,13 +216,12 @@ handleSubmit = async (e) => {
     this.setState({
       modalOpen:true,
       name: topic.name,
-      description: topic.description,
-      topicToBeEdit:topic
+      topicToBeEdit: topic._id
     })
   }
 
   render () {
-
+      console.log(baseUrl)
     return (
       <div className="App">
         <Nav loggingUser={this.loggingUser} register={this.register}/>
@@ -233,8 +231,7 @@ handleSubmit = async (e) => {
 
           <TopicTable
             topics={this.state.topics}
-            addLike={this.addLike}
-            deleteTopic={this.deleteTopic}
+            deleteTopic={this.deleteTopics}
             showEditForm={this.showEditForm}
             />
           <br/>
@@ -246,8 +243,7 @@ handleSubmit = async (e) => {
               <label>Name: </label>
               <input name="name" value={this.state.name} onChange={this.handleChange}/> <br/>
 
-              <label>Description: </label>
-              <input name="description" value={this.state.description} onChange={this.handleChange}/>
+             
 
               <button>submit</button>
 
