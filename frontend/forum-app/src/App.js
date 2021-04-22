@@ -57,7 +57,7 @@ class App extends Component {
     })
   }
   loggingUser = async (e) => {
-    console.log('logingUser')
+    console.log('loggingUser')
     e.preventDefault()
     const url = baseUrl + '/users/login'
     const logindBody = {
@@ -110,7 +110,7 @@ class App extends Component {
     }
   }
 
-  deleteHoliday = async (id) => {
+  deleteTopic = async (id) => {
     const url = baseUrl + '/topics/' + id
 
     try{
@@ -171,7 +171,7 @@ addLike = async (topics) => {
 
 handleSubmit = async (e) => {
   e.preventDefault()
-    const url = baseUrl + '/holidays/' + this.state.topicsToBeEdit._id
+    const url = baseUrl + '/topics/' + this.state.topicsToBeEdit._id
     try{
       const response = await fetch( url , {
         method: 'PUT',
@@ -229,7 +229,7 @@ handleSubmit = async (e) => {
         <Nav loggingUser={this.loggingUser} register={this.register}/>
 
           <h1> Forum </h1>
-          <NewForm baseUrl={ baseUrl } addHoliday={ this.addTopic } />
+          <NewForm baseUrl={ baseUrl } addTopic={ this.addTopic } />
 
           <TopicTable
             topics={this.state.topics}

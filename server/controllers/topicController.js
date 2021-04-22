@@ -7,17 +7,17 @@ const userModel = require('../models/userModel');
 
 // GET (index) list of holidays
 topics.get('/', (req, res)=>{
-	// res.send('Get route is working!!!');
+	res.send('Get route is working!!!');
 
-	userModel.findById(req.session.currentUser._id, (error, foundUser)=>{
-		if (error){
-			res.status(400).json(error)
-		}
-		else{
-
-			res.status(200).json(foundUser.topics)
-		}
-	}).populate('Topics')
+	// userModel.findById(req.session.currentUser._id, (error, foundUser)=>{
+	// 	if (error){
+	// 		res.status(400).json(error)
+	// 	}
+	// 	else{
+	//
+	// 		res.status(200).json(foundUser.topics)
+	// 	}
+	// }).populate('Topics')
 
 });
 
@@ -37,9 +37,11 @@ topics.post('/', (req, res)=>{
 					res.status(400).json({ error: error.message })
 				}
 				else{
-					foundUser.favHolidays.push(createTopic)
-					foundUser.save()
-					res.status(201).json(createTopic)
+
+          foundUser.topics.push(createTopic)
+					foundUser.save((err, updatedModel) => {
+    res.status(201).json(createTopic)
+})
 				}
 			})
 		}
@@ -73,7 +75,7 @@ topicsModel.findByIdAndUpdate(req.params.id, req.body, {new:true}, (error, updat
 		}
 		else{
 			res.status(200).json({
-				message: `Holiday ${updatedTopic.id} updated successfully`,
+				message: `Topic ${updatedTopic.id} updated successfully`,
 				data: updatedTopic
 			})
 		}

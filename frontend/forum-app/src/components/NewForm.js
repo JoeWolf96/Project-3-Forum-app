@@ -21,6 +21,8 @@ export default class NewForm extends Component {
   handleSubmit (event) {
     event.preventDefault()
     // fetch
+    let baseUrl = process.env.REACT_APP_BACKENDURL
+    console.log(baseUrl)
     fetch(this.props.baseUrl + '/topics', {
       method: 'POST',
       body: JSON.stringify({name: this.state.name}),
@@ -39,8 +41,7 @@ export default class NewForm extends Component {
   }
 
 
-  //https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor
-  // read more in htmlFor
+
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
