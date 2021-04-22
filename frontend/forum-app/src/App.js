@@ -2,7 +2,7 @@
 import './App.css';
 import React, { Component } from 'react'
 import NewForm from './components/NewForm'
-import HolidayTable from './components/HolidayTable'
+import TopicTable from './components/TopicTable'
 import Nav from './components/Nav'
 
 
@@ -230,7 +230,7 @@ handleSubmit = async (e) => {
           <h1> Forum </h1>
           <NewForm baseUrl={ baseUrl } addHoliday={ this.addTopic } />
 
-          <HolidayTable
+          <TopicTable
             topics={this.state.topics}
             addLike={this.addLike}
             deleteTopic={this.deleteTopic}
