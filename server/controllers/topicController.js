@@ -7,17 +7,18 @@ const userModel = require('../models/userModel');
 
 // GET (index) list of holidays
 topics.get('/', (req, res)=>{
-	res.send('Get route is working!!!');
+	//res.send('Get route is working!!!');
 
-	// userModel.findById(req.session.currentUser._id, (error, foundUser)=>{
-	// 	if (error){
-	// 		res.status(400).json(error)
-	// 	}
-	// 	else{
-	//
-	// 		res.status(200).json(foundUser.topics)
-	// 	}
-	// }).populate('Topics')
+	userModel.findById(req.session.currentUser._id, (error, foundUser)=>{
+		if (error){
+
+			return res.status(400).json(error)
+		}
+		else{
+
+			return res.status(200).json(foundUser.topics)
+		}
+	}).populate('Topics')
 
 });
 
@@ -28,13 +29,13 @@ topics.post('/', (req, res)=>{
 
 	topicModel.create(req.body, (error, createTopic)=>{
 		if (error){
-			res.status(400).json({error: error.message})
+			return res.status(400).json({error: error.message})
 		}
 		else{
 
 			userModel.findById(req.session.currentUser._id, (error, foundUser)=>{
 				if (error) {
-					res.status(400).json({ error: error.message })
+					return res.status(400).json({ error: error.message })
 				}
 				else{
 
@@ -54,13 +55,13 @@ topics.delete('/:id', (req, res)=>{
 
 	topicModel.findByIdAndDelete(req.params.id, (error, deletedTopic)=>{
 		if (error){
-			res.status(400).json({error: error.message})
+			return res.status(400).json({error: error.message})
 		}
 		else if (deletedTopic === null){
-			res.status(404).json({message: 'Topic id not Found'})
+			return res.status(404).json({message: 'Topic id not Found'})
 		}
 		else{
-			res.status(200).json({message: `Topic ${deletedTopic.name} deleted successfully`})
+			return res.status(200).json({message: `Topic ${deletedTopic.name} deleted successfully`})
 		}
 	})
 })
@@ -69,12 +70,13 @@ topics.delete('/:id', (req, res)=>{
 // UPDATE ROUTE
 topics.put('/:id', (req, res)=>{
 
-topicsModel.findByIdAndUpdate(req.params.id, req.body, {new:true}, (error, updatedTopic)=>{
+topicModel.findByIdAndUpdate(req.params.id, req.body, {new:true}, (error, updatedTopic)=>{
 		if (error){
-			res.status(400).json({error: error.message})
+
+			return res.status(400).json({error: error.message})
 		}
 		else{
-			res.status(200).json({
+			return res.status(200).json({
 				message: `Topic ${updatedTopic.id} updated successfully`,
 				data: updatedTopic
 			})
@@ -87,10 +89,10 @@ topics.patch('/addlikes/:id', (req, res)=>{
 
 	topicModel.findByIdAndUpdate(req.params.id, { $inc: { likes : 1} }, {new:true}, (error, updatedTopic)=>{
 		if (error){
-			res.status(400).json({error: error.message})
+			return res.status(400).json({error: error.message})
 		}
 		else{
-			res.status(200).json({
+			return res.status(200).json({
 				data: updatedTopic
 			})
 		}

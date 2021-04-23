@@ -8,16 +8,9 @@ const TopicTable = (props)=>{
                 {props.topics.map(topics => {
                     return (
                         <tr key={topics._id} >
-                            <td onDoubleClick={() => props.toggleCelebrated(topics)}
-                                className={topics.celebrated
-                                    ? 'asdasd'
-                                    :
-                                    null}> {topics.name}
-                            </td>
-
-
-                            <td onClick={() => props.deleteTopics(topics._id)}>X</td>
-                            <td onClick={() => props.showEditForm(topics)}>edit</td>
+                            
+                            <td onClick={() => props.deleteTopic(topics._id)}>DELETE</td>
+                            <td onClick={() => props.showEditForm(topics)}>EDIT</td>
                         </tr>
                         )
                     })

@@ -22,7 +22,7 @@ class App extends Component {
     this.state = {
       topics: [],
       modalOpen: false,
-      topicsToBeEdit:{},
+      topicsToBeEdit:[],
       description:'',
       name: '',
       userLogedIn: false
@@ -171,13 +171,13 @@ addLike = async (topics) => {
 
 handleSubmit = async (e) => {
   e.preventDefault()
-    const url = baseUrl + '/topics/' + this.state.topicsToBeEdit._id
+    const url = baseUrl + '/topics/' + this.state.topics._id
     try{
       const response = await fetch( url , {
         method: 'PUT',
         body: JSON.stringify({
           name: e.target.name.value,
-          description: e.target.description.values
+
         }),
         headers: {
           'Content-Type' : 'application/json'
@@ -246,8 +246,6 @@ handleSubmit = async (e) => {
               <label>Name: </label>
               <input name="name" value={this.state.name} onChange={this.handleChange}/> <br/>
 
-              <label>Description: </label>
-              <input name="description" value={this.state.description} onChange={this.handleChange}/>
 
               <button>submit</button>
 

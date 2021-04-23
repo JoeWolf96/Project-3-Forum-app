@@ -6,7 +6,7 @@ const usersSchema = new Schema({
     username: { type: String, required: true },
     password: { type: String, required: true },
     topics: [{
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: 'Topics',
     }]
 })
